@@ -12,7 +12,7 @@ function App() {
           i18n.changeLanguage("ar");
         }}
       >
-        change
+        changess
       </button>
     </div>
   );
