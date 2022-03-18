@@ -8,32 +8,38 @@ const fetchDataLunches = async (offset, limit) => {
   return await request(
     endpoint,
     gql`
-      query  {
-        launchesPastResult(limit: ${limit}, offset: ${offset} ) {
-          data {
-            id
-            rocket {
-              first_stage {
-                cores {
-                  flight                  
-                }
-              }
-              rocket_name
-              rocket {
-                country
-                name
-              }
-            }
-            links {
-              mission_patch
-              mission_patch_small
-            }
-            launch_site {
-              site_name
-            }
-          }
+     
+{
+  launchesPastResult(limit: ${limit}, offset: ${offset} ) {
+    data{
+    id
+    rocket {
+      first_stage {
+        cores {
+          flight                  
         }
       }
+      rocket_name
+      rocket {
+        country
+        name
+      }
+    }
+    links {
+      mission_patch
+      mission_patch_small
+    }
+    launch_site {
+      site_name
+    }
+     launch_date_local
+    upcoming
+    mission_name
+  
+  }
+
+  }
+}
     `
   );
 };
@@ -46,6 +52,6 @@ export const useReactQeury = () => {
     fetchDataLunches(offset, limit)
   );
   if (data) data = data.launchesPastResult.data;
-  data && console.log(data);
+  // data && console.log(data);
   return { data, isLoading, error, refetch };
 };

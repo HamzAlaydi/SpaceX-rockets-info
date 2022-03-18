@@ -15,7 +15,7 @@ export const setInDataSource = (data, dataSource) => {
         Rocket_name: d.rocket.rocket_name,
         Rocket_country: d.rocket.rocket.country,
         Launch_site: d.launch_site.site_name,
-        launch_date: Date(d.launch_date_local, "YYY:MMM:DDD"),
+        launch_date: d.launch_date_local,
         Is_upcoming: `${d.upcoming}`,
         Media_Show_icons: (
           <img

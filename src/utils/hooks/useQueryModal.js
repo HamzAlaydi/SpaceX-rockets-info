@@ -6,37 +6,38 @@ const fetchDataModal = async (limit, offset, id) => {
   return await request(
     endpoint,
     gql`
-      {
-        launchesPastResult(limit: ${limit}, offset:${offset}) {
-          data {
-            id:${id}
+    {
+      launchesPastResult(find:{launch_date_local:"${id}"}) {
+        data {
+          rocket {
             rocket {
-              rocket {
-                cost_per_launch
-                mass {
-                  kg
-                  lb
-                }
-                diameter {
-                  feet
-                  meters
-                }
-
-                success_rate_pct
+              cost_per_launch
+              mass {
+                kg
+                lb
               }
+              diameter {
+                feet
+                meters
+              }
+
+              success_rate_pct
             }
-            links {
-              mission_patch_small
-            }
-            launch_site {
-              site_name
-            }
-            launch_date_local
-            upcoming
-            mission_name
           }
+          links {
+            mission_patch_small
+          }
+          
+              launch_site {
+      site_name
+    }
+          
+          launch_date_local
+          upcoming
+          mission_name
         }
       }
+    }
     `
   );
 };
@@ -45,14 +46,14 @@ export const useQueryModal = () => {
   const { offset } = useSelector((state) => state.offset);
   const { limit } = useSelector((state) => state.limit);
   const { id } = useSelector((state) => state.id);
-
-  let { data, isLoading, error, refetch, ...rest } = useQuery(
-    "fetchDataModal",
-    () => fetchDataModal(limit, offset, id)
+  let { data, isLoading, error, refetch } = useQuery("fetchModalData", () =>
+    fetchDataModal(limit, offset, id)
   );
-
-  if (data) {
+  if (id != 0 && data) {
+    console.log("dasssssssssssssssssssssssssssssssssssssssssss");
     const info = data.launchesPastResult.data;
-    return { info, isLoading, error, ...rest, refetch };
+    return { info, isLoading, error, refetch };
+  } else {
+    return { info: null, isLoading, error, refetch };
   }
 };

@@ -48,9 +48,10 @@ const Home = () => {
   //handle Show Modal
   const showModal = (record) => {
     setRecordInfo(record);
-    recordInfo && console.log(recordInfo);
-    dispatch(setIDAction(record.id));
-    console.log(id);
+    // recordInfo && console.log(recordInfo);
+    dispatch(setIDAction(record.launch_date));
+    dispatch(setModalTrue());
+    // console.log(id);
   };
 
   const handleSelect = (e) => {
@@ -109,7 +110,7 @@ const Home = () => {
             Next
           </Button>
 
-          {/* <ModalC /> */}
+          <ModalC />
         </div>
       </div>
     );
